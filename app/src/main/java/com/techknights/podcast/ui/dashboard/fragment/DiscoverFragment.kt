@@ -16,9 +16,11 @@ import com.techknights.podcast.R
 import com.techknights.podcast.helper.AppBarStateChangeListener
 import com.techknights.podcast.helper.RecyclerViewMargin
 import com.techknights.podcast.model.PodCast
+import com.techknights.podcast.model.TopBanner
 import com.techknights.podcast.ui.dashboard.adpater.PodCastAdapter
 import com.techknights.podcast.ui.dashboard.viewmodel.DiscoverViewModel
 import com.techknights.podcast.utils.ResponseStatus
+import com.techknights.podcast.view.ErrorView
 import kotlinx.android.synthetic.main.fragment_discover.*
 
 class DiscoverFragment : Fragment() {
@@ -27,6 +29,7 @@ class DiscoverFragment : Fragment() {
     private lateinit var ctx: Context
     private var podCastAdapter: PodCastAdapter? = null
     private var podCasts = ArrayList<PodCast>()
+    private var banners = ArrayList<TopBanner>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,7 +48,7 @@ class DiscoverFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        errorView.showLoading()
+        showLoading()
 
         initViews()
 
@@ -69,12 +72,21 @@ class DiscoverFragment : Fragment() {
                 }
             }
         })
+
+        errorView.setListener(object : ErrorView.ErrorCallBack {
+            override fun onRetryClick() {
+                showLoading()
+                getBanners()
+                getPodCasts()
+            }
+        })
     }
 
     private fun getBanners() {
         discoverViewModel.getBanners().observe(this, Observer {
             if(it?.status == ResponseStatus.SUCCESS && !it.data.isNullOrEmpty()) {
-                bannerView.setData(ArrayList(it.data))
+                banners.addAll(it.data)
+                bannerView.setData(banners)
             }
         })
     }
@@ -86,11 +98,29 @@ class DiscoverFragment : Fragment() {
                 podCasts.addAll(it.data)
                 podCastAdapter?.notifyDataSetChanged()
                 topShowsRootTitle.visibility = View.VISIBLE
-                errorView.hideLoading()
+                hideLoading()
             } else {
-                errorView.setErrorMessage()
+                showError()
                 topShowsRootTitle.visibility = View.GONE
             }
         })
+    }
+
+    private fun hideLoading() {
+        if(banners.isNotEmpty())
+            bannerView.visibility = View.VISIBLE
+        else
+            bannerView.visibility = View.GONE
+        errorView.hideLoading()
+    }
+
+    private fun showLoading() {
+        bannerView.visibility = View.GONE
+        errorView.showLoading()
+    }
+
+    private fun showError() {
+        bannerView.visibility = View.GONE
+        errorView.setErrorMessage()
     }
 }

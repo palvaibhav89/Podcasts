@@ -10,19 +10,7 @@ class DiscoverViewModel : ViewModel() {
 
     private val repository = DiscoverApiRepository()
 
-    fun getBanners() = liveData(Dispatchers.IO) {
-        try {
-            emit(Resource.success(repository.getBanners()?.body()?.data))
-        } catch (exception: Exception) {
-            emit(Resource.error(Resource.GENERIC_ERROR, null))
-        }
-    }
+    fun getBanners() = repository.getBanners()
 
-    fun getPodCasts() = liveData(Dispatchers.IO) {
-        try {
-            emit(Resource.success(repository.getPodCasts()?.body()?.data))
-        } catch (exception: Exception) {
-            emit(Resource.error(Resource.GENERIC_ERROR, null))
-        }
-    }
+    fun getPodCasts() = repository.getPodCasts()
 }

@@ -21,6 +21,7 @@ class BannerView : FrameLayout {
     private var currentPage = 0
     private lateinit var swipeTimer: Timer
     private lateinit var adapter: BannerAdapter
+    private var bannerInitialized = false
 
     constructor(context: Context) : super(context) {
         init(context)
@@ -41,36 +42,28 @@ class BannerView : FrameLayout {
     }
 
     fun setData(banners: ArrayList<TopBanner>){
-        if(banners.size > 0) {
-            checkSwipeTimerInitialized()
 
+        checkSwipeTimerInitialized()
+
+        if(!bannerInitialized) {
+            bannerInitialized = true
             val snapHelper =  PagerSnapHelper()
             snapHelper.attachToRecyclerView(bannerViewPager)
             indicator.attachToRecyclerView(bannerViewPager, snapHelper)
             adapter.registerAdapterDataObserver(indicator.adapterDataObserver)
 
-            adapter.addData(banners)
-            proceed(banners.size)
+            bannerViewPager.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    currentPage = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                }
+            })
         }
 
-        indicator.visibility = if (banners.size > 1) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
-    }
-
-    private fun proceed(size: Int){
-
-        bannerViewPager.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                currentPage = (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-            }
-        })
+        adapter.addData(banners)
 
         val update = Runnable {
-            if (currentPage == size) {
+            if (currentPage == banners.size) {
                 currentPage = 0
             }
             bannerViewPager.smoothScrollToPosition(currentPage++)
@@ -82,6 +75,12 @@ class BannerView : FrameLayout {
                 Handler(Looper.getMainLooper()).post(update)
             }
         }, 1000, 1000)
+
+        indicator.visibility = if (banners.size > 1) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
     }
 
     override fun onDetachedFromWindow() {

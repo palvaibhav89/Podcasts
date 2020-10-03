@@ -17,6 +17,7 @@ import com.techknights.podcast.ui.dashboard.adpater.CommentAdapter
 import com.techknights.podcast.ui.dashboard.viewmodel.PodCastDetailViewModel
 import com.techknights.podcast.utils.ResponseStatus
 import com.techknights.podcast.utils.Utils
+import com.techknights.podcast.view.ErrorView
 import kotlinx.android.synthetic.main.fragment_comments.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -70,6 +71,13 @@ class CommentsFragment : Fragment() {
         commentAdapter = CommentAdapter(comments)
         commentRecyclerView.adapter = commentAdapter
         commentRecyclerView.setHasFixedSize(true)
+
+        errorView.setListener(object : ErrorView.ErrorCallBack {
+            override fun onRetryClick() {
+                errorView.showLoading()
+                getComments()
+            }
+        })
     }
 
     private fun getComments() {

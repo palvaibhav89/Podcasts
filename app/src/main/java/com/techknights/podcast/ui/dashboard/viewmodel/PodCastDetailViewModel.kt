@@ -14,21 +14,9 @@ class PodCastDetailViewModel : ViewModel() {
 
     private val repository = PodCastDetailApiRepository()
 
-    fun getComments(podCastId: String) = liveData(Dispatchers.IO) {
-        try {
-            emit(Resource.success(repository.getComments(podCastId)?.body()?.data))
-        } catch (exception: Exception) {
-            emit(Resource.error(Resource.GENERIC_ERROR, null))
-        }
-    }
+    fun getComments(podCastId: String) = repository.getComments(podCastId)
 
-    fun getEpisodes(podCastId: String) = liveData(Dispatchers.IO) {
-        try {
-            emit(Resource.success(repository.getEpisodes(podCastId)?.body()?.data))
-        } catch (exception: Exception) {
-            emit(Resource.error(Resource.GENERIC_ERROR, null))
-        }
-    }
+    fun getEpisodes(podCastId: String) = repository.getEpisodes(podCastId)
 
     fun getIsSubscribed(podCastId: String) = liveData(Dispatchers.IO) {
         val str = BaseApplication.sharedPref.getSubscribedPodCasts()

@@ -15,6 +15,7 @@ import com.techknights.podcast.model.PodCast
 import com.techknights.podcast.ui.dashboard.adpater.EpisodeAdapter
 import com.techknights.podcast.ui.dashboard.viewmodel.PodCastDetailViewModel
 import com.techknights.podcast.utils.ResponseStatus
+import com.techknights.podcast.view.ErrorView
 import kotlinx.android.synthetic.main.fragment_episodes.*
 
 class EpisodesFragment : Fragment() {
@@ -71,6 +72,13 @@ class EpisodesFragment : Fragment() {
         episodeRecyclerView.adapter = episodeAdapter
 
         episodesCount.text = ctx.getString(R.string.episodes, episodes.size)
+
+        errorView.setListener(object : ErrorView.ErrorCallBack {
+            override fun onRetryClick() {
+                errorView.showLoading()
+                getEpisodes()
+            }
+        })
     }
 
     private fun getEpisodes() {

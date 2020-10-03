@@ -11,12 +11,11 @@
     <string name="toolbar_hint">Search shows, RSS feeds, iTunes</string>
 
     <string name="generic_error">Something went wrong. Please try again later</string>
+    <string name="network_error">No Internet</string>
     <string name="more">MORE</string>
     <string name="top_shows">Top Shows</string>
     <string name="subscribe">Subscribe</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="show_info">Show Info</string>
     <string name="share">Share</string>
     <string name="example">example</string>
