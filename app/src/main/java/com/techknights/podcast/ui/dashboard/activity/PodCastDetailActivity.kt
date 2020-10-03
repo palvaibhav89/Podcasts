@@ -120,6 +120,7 @@ class PodCastDetailActivity : AppCompatActivity() {
                     comment.comment = addComment.text.toString()
                     EventBus.getDefault().post(comment)
                     Handler(Looper.getMainLooper()).postDelayed({
+                        addComment.setText("")
                         loader?.hide()
                     }, 1500)
                 }
