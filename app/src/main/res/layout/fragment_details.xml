@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/size_12dp"
+    android:orientation="vertical"
+    tools:context=".ui.dashboard.fragment.DetailsFragment">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_16sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/quicksand"
+        android:text="@string/description"/>
+
+    <TextView
+        android:id="@+id/podCastAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_8dp"
+        android:textSize="@dimen/size_10sp"
+        android:textColor="@color/grey_dark"
+        android:fontFamily="@font/quicksand"
+        tools:text="Vaibhav"/>
+
+    <TextView
+        android:id="@+id/podCastDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/size_12dp"
+        android:textSize="@dimen/size_14sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/quicksand"
+        tools:text="Vaibhav kjahsdsa jksahdk asd skahdka sdsdh askjhd as"/>
+</LinearLayout>

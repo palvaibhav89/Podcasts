@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootTitleLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/headerText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/quicksand_bold"
+            android:letterSpacing="0.17"
+            android:paddingStart="@dimen/size_16dp"
+            android:paddingTop="@dimen/size_8dp"
+            android:paddingEnd="@dimen/size_16dp"
+            android:paddingBottom="@dimen/size_8dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_12sp"
+            tools:text="TOP SHOWS" />
+
+        <TextView
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/size_16dp"
+            android:paddingStart="@dimen/size_16dp"
+            android:visibility="gone"
+            android:textSize="@dimen/size_12sp"
+            android:fontFamily="@font/quicksand_bold"
+            android:textStyle="normal"
+            android:textColor="@color/tab_color"
+            android:lineSpacingExtra="-1sp"
+            android:text="@string/more" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recylerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:nestedScrollingEnabled="false"/>
+</LinearLayout>
