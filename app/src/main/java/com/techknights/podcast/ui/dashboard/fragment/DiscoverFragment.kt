@@ -107,10 +107,7 @@ class DiscoverFragment : Fragment() {
     }
 
     private fun hideLoading() {
-        if(banners.isNotEmpty())
-            bannerView.visibility = View.VISIBLE
-        else
-            bannerView.visibility = View.GONE
+        bannerView.visibility = View.VISIBLE
         errorView.hideLoading()
     }
 
