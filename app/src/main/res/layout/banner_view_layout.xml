@@ -18,6 +18,7 @@
         android:layout_height="20dp"
         android:layout_marginBottom="@dimen/size_12dp"
         android:layout_gravity="bottom|center"
+        android:visibility="gone"
         app:ci_drawable="@drawable/selected_dot_banner"
         app:ci_drawable_unselected="@drawable/select_non_dot_banner" />
 </FrameLayout>
